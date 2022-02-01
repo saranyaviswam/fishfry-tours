@@ -61,6 +61,7 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=saranyaviswam_fishfry-tours
 
   build:
+    needs: sonar
     name: Build
     runs-on: ubuntu-latest
     steps:
