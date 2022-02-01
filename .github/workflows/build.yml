@@ -82,7 +82,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: artifact
-          path: target/fishfrytours-api-0.0.1-SNAPSHOT.jar
+          path: target/api-0.0.1-SNAPSHOT.jar
       - name: Download JAR
         uses: actions/download-artifact@v2
         with:
@@ -97,7 +97,7 @@ jobs:
           environment_name: Fishfrytoursapideploy-env
           version_label: ${{github.SHA}}
           region: us-east-1
-          deployment_package: target/fishfrytours-api-0.0.1-SNAPSHOT.jar
+          deployment_package: target/api-0.0.1-SNAPSHOT.jar
   deploy:
     needs: build
     name: Deploy to AWS EBS
