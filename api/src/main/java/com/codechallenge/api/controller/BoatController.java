@@ -24,16 +24,6 @@ public class BoatController {
 	@Autowired
 	private BoatRepository boatRepository;
 
-	@GetMapping("/")
-	public String healthCheck() {
-		return "OK";
-	}
-
-	@GetMapping("/version")
-	public String version() {
-		return "1.0.0";
-	}
-
 	/**
 	 * Get all the boats.
 	 *
