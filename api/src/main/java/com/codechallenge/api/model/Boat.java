@@ -20,6 +20,16 @@ public class Boat {
 	@Column(name = "status")
 	private String status;
 	
+	public Boat() {
+		
+	}
+	
+	public Boat(BoatVO boatVO) {
+		this.name=boatVO.getName();
+		this.status=boatVO.getStatus();
+		this.id=boatVO.getId();
+	}
+	
 	public Long getId() {
 		return id;
 	}

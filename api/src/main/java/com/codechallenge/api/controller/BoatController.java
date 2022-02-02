@@ -1,9 +1,12 @@
 package com.codechallenge.api.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codechallenge.api.exception.NoDataFoundException;
 import com.codechallenge.api.model.Boat;
+import com.codechallenge.api.model.BoatVO;
 import com.codechallenge.api.repository.BoatRepository;
 
 @RestController
 @RequestMapping("/api/v1")
 public class BoatController {
 
+	private static final String NO_DATA_FOUND_ERROR = "No boat found with id : ";
+	
 	@Autowired
 	private BoatRepository boatRepository;
 
@@ -48,7 +54,7 @@ public class BoatController {
 	@GetMapping("/boats/{id}")
 	public ResponseEntity<Boat> getBoatsById(@PathVariable(value = "id") Long boatId) throws NoDataFoundException {
 		Boat boat = boatRepository.findById(boatId)
-				.orElseThrow(() -> new NoDataFoundException("Boat not found for :: " + boatId));
+				.orElseThrow(() -> new NoDataFoundException(NO_DATA_FOUND_ERROR + boatId));
 		return ResponseEntity.ok().body(boat);
 	}
 
@@ -59,7 +65,8 @@ public class BoatController {
 	 * @return the boat
 	 */
 	@PostMapping("/boats")
-	public Boat createBoat(@RequestBody Boat boat) {
+	public Boat createBoat(@RequestBody BoatVO boatVO) {
+		Boat boat = new Boat(boatVO);
 		return boatRepository.save(boat);
 	}
 
@@ -67,21 +74,41 @@ public class BoatController {
 	 * Update boat response entity.
 	 *
 	 * @param boatId      the boat id
-	 * @param boatDetails the boat details
+	 * @param boatToUpdate the boat details
 	 * @return the response entity
 	 * @throws NoDataFoundException
 	 */
 	@PutMapping("/boats/{id}")
-	public ResponseEntity<Boat> updateBoat(@PathVariable(value = "id") Long boatId, @RequestBody Boat boatToUpdate)
+	public ResponseEntity<Boat> updateBoat(@PathVariable(value = "id") Long boatId, @RequestBody BoatVO boatToUpdate)
 			throws NoDataFoundException {
 
 		Boat boat = boatRepository.findById(boatId)
-				.orElseThrow(() -> new NoDataFoundException("Boat not found on :: " + boatId));
+				.orElseThrow(() -> new NoDataFoundException(NO_DATA_FOUND_ERROR  + boatId));
 
 		boat.setStatus(boatToUpdate.getStatus());
 		boat.setName(boatToUpdate.getName());
 		final Boat boatAfterUpdate = boatRepository.save(boat);
 		return ResponseEntity.ok(boatAfterUpdate);
 	}
+	
+	/**
+	   * Delete boat.
+	   *
+	   * @param boatId the boat id
+	   * @return the map
+	   * @throws NoDataFoundException
+	   */
+	  @DeleteMapping("/boats/{id}")
+	  public Map<String, Boolean> deleteBoats(@PathVariable(value = "id") Long boatId) throws NoDataFoundException {
+	    Boat boat =
+	    		boatRepository
+	            .findById(boatId)
+	            .orElseThrow(() -> new NoDataFoundException(NO_DATA_FOUND_ERROR + boatId));
+	
+	    boatRepository.delete(boat);
+	    Map<String, Boolean> response = new HashMap<>();
+	    response.put("deleted", Boolean.TRUE);
+	    return response;
+	  }
 
 }

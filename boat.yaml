@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title: fishfry
+  version: '1.0'
+  contact: 'Saranya Viswam'
+  description: 'Fish Fry Tours Boat API Spec'
+servers:
+  - url: ''
+paths:
+  /api/v1/boats:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            header-0:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Boat'
+      operationId: get-api-v1-boats
+      description: Returns list of boats
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: status
+          description: Filter by status
+    post:
+      tags: []
+      summary: 'Create a boat object'
+      operationId: post-api-v1-boats
+      responses:
+        '200':
+          description: OK
+      description: Create a boat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Boat'
+        description: Boat object
+  '/api/v1/boats/:id':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Boat'
+      operationId: 'get-api-v1-boats-:id'
+      description: Find boat by ID
+    put:
+      tags: []
+      summary: 'Update a boat'
+      operationId: 'put-api-v1-boats-:id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Boat'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      description: Update boat details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Boat'
+        description: Boat object
+components:
+  schemas:
+    Boat:
+      title: Boat
+      type: object
+      description: Boat Model
+      properties:
+        id:
+          type: string
+          description: Unique identifier
+        name:
+          type: string
+          description: Name of the boat
+        status:
+          type: string
+          description: Boat status
+          enum:
+            - Docked
+            - Maintenance
+            - Outbound To Sea
+            - Inbound To Harbor
+      required:
+        - name
+        - status
