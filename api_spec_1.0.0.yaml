@@ -2,8 +2,8 @@ openapi: 3.0.0
 info:
   title: fishfry
   version: '1.0'
-  contact: 'Saranya Viswam'
-  description: 'Fish Fry Tours Boat API Spec'
+  contact: Saranya Viswam
+  description: Fish Fry Tours Boat API Spec
 servers:
   - url: ''
 paths:
@@ -34,7 +34,7 @@ paths:
           description: Filter by status
     post:
       tags: []
-      summary: 'Create a boat object'
+      summary: Create a boat object
       operationId: post-api-v1-boats
       responses:
         '200':
@@ -61,7 +61,7 @@ paths:
       description: Find boat by ID
     put:
       tags: []
-      summary: 'Update a boat'
+      summary: Update a boat
       operationId: 'put-api-v1-boats-:id'
       responses:
         '200':
@@ -81,6 +81,14 @@ paths:
             schema:
               $ref: '#/components/schemas/Boat'
         description: Boat object
+    delete:
+      tags: []
+      summary: ''
+      operationId: 'delete-api-v1-boats-:id'
+      responses:
+        '200':
+          description: OK
+      description: Delete boat by ID
 components:
   schemas:
     Boat:
