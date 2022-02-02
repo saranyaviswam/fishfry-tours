@@ -17,7 +17,7 @@
 - [x] Test cases : JUnit test cases has been added for unit testing. Also added postman collection for testing [here](https://github.com/saranyaviswam/fishfry-tours/blob/main/postman_collection.json).
 
 ## Application URL
-AWS Url for the application : http://fishfrytoursapideploy-env.eba-5ppauth7.us-east-1.elasticbeanstalk.com/api/v1/
+AWS Url for the application : http://fishfrytoursapideploy-env.eba-5ppauth7.us-east-1.elasticbeanstalk.com/
 
 ### Endpoints
 For details on payload chcekout [Postman collection](https://github.com/saranyaviswam/fishfry-tours/blob/main/postman_collection.json) and [Api spec](https://github.com/saranyaviswam/fishfry-tours/blob/main/api_spec_1.0.0.yaml)
