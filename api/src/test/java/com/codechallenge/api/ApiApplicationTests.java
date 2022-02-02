@@ -34,11 +34,12 @@ class ApiApplicationTests {
 	
 	@Test
 	void contextLoads() {
+		Assertions.assertNotNull(restTemplate);
 	}
 	
 	//Create boats and test get all the boats
 	@Test
-	public void testGetAllBoats() {
+	void testGetAllBoats() {
 		
 		//create boats
 					
@@ -61,27 +62,28 @@ class ApiApplicationTests {
 				HttpMethod.GET, entity, String.class);
 
 		Assertions.assertNotNull(response.getBody());
-		Assertions.assertEquals(response.getStatusCodeValue(),200);
+		Assertions.assertEquals(200,response.getStatusCodeValue());
 	}
 
 	//Create boats 
 	@Test
-	public void testGetBoatById() {
+	void testGetBoatById() {
 		Boat boat = restTemplate.getForObject(getRootUrl() + "/boats/1", Boat.class);
 		
 		Assertions.assertNotNull(boat);
 	}
 
 	@Test
-	public void testCreateBoat() {
+	void testCreateBoat() {
 		BoatVO boat = createTestBoat(1, "Test1", "Docked");		
 		ResponseEntity<Boat> postResponse = restTemplate.postForEntity(getRootUrl() + "/boats", boat, Boat.class);
 		Assertions.assertNotNull(postResponse);
 		Assertions.assertNotNull(postResponse.getBody());
+		Assertions.assertEquals(200,postResponse.getStatusCodeValue());
 	}
 
 	@Test
-	public void testUpdatePost() {
+	void testUpdatePost() {
 			
 		//create boat
 		
@@ -102,7 +104,7 @@ class ApiApplicationTests {
 	}
 
 	@Test
-	public void testDeletePost() {
+	void testDeletePost() {
 		//create boat
 		long id = 1;
 		BoatVO boatCreated = createTestBoat(id, "Test1", "Docked");		
@@ -121,7 +123,7 @@ class ApiApplicationTests {
 	
 	//get the list of boats with a specified status
 	@Test
-	public void testGetBoatsByStatus() {
+	void testGetBoatsByStatus() {
 		
 		//create boats
 					
@@ -144,11 +146,11 @@ class ApiApplicationTests {
 				HttpMethod.GET, entity, String.class);
 
 		Assertions.assertNotNull(response.getBody());
-		Assertions.assertEquals(response.getStatusCodeValue(),200);
+		Assertions.assertEquals(200,response.getStatusCodeValue());
 	}
 	
 	@Test
-	public void testGetBoatByIdNotFound() {
+	void testGetBoatByIdNotFound() {
 		Boat boat = restTemplate.getForObject(getRootUrl() + "/boats/100", Boat.class);
 		
 		Assertions.assertNotNull(boat);
